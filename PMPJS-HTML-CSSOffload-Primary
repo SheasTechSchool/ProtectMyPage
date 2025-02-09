@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Protected Content</title>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/javascript-required">
+    </noscript>
+
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'protection.css';">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+
+    <link rel="stylesheet" href="protection.css">
+
+    <script>
+        // ... (JavaScript code remains the same as the previous corrected version) ...
+    </script>
+</head>
+<body>
+    <noscript>
+        <div style="text-align: center; padding: 20px;">
+            <h1>NICE TRY! JavaScript Required</h1>
+            <p>This page requires JavaScript to function properly. Please enable JavaScript in your browser settings.</p>
+            <p>Stop trying to bootleg and steal. Just pay for your own login buddy.</p>
+        </div>
+    </noscript>
+
+    <div class="js-required">
+        <h1>Welcome to the Protected Content!</h1>
+        <p>This is where your valuable stuff is.</p>
+    </div>
+</body>
+</html>
