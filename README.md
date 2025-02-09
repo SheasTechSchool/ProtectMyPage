@@ -87,7 +87,7 @@ A robust, cross-platform JavaScript solution for protecting your web content fro
 
 ## 📝 License
 
-**Shea's Tech School © 2024 by Shea Bennett**
+**Shea's Tech School © 2025 by Shea Bennett**
 Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
 CC BY-NC-SA 4.0
 
