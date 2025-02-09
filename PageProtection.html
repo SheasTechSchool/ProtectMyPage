@@ -1,179 +1,130 @@
 <head>
-    <!-- Basic meta tags -->
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    
+
     <script>
-    /**
-     * Shea's Tech School © 2025 by Shea Bennett
-     * Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
-     * CC BY-NC-SA 4.0
-     * 
-     * DO NOT STEAL. JUST PAY FOR YOUR OWN ACCESS.
-      * THIS CODE LICENSE IS GPL BUDDY!! If you use it, give credit! Email school@sheastech.io or put a comment in GH.
-     */
+        /**
+         * Shea's Tech School © 2025 by Shea Bennett
+         * Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+         * CC BY-NC-SA 4.0
+         *
+         * DO NOT STEAL. JUST PAY FOR YOUR OWN ACCESS.
+         * THIS CODE LICENSE IS GPL BUDDY!! If you use it, give credit! Email school@sheastech.io or put a comment in GH.
+         */
 
-    // Execute when DOM is fully loaded
-    document.addEventListener('DOMContentLoaded', function() {
-        initializeCopyProtection();
-    });
+        document.addEventListener('DOMContentLoaded', initializeCopyProtection);
 
-    function initializeCopyProtection() {
-        // ============================
-        // Mouse Protection
-        // ============================
-        
-        // Prevent right-click context menu
-        document.addEventListener('contextmenu', function(e) {
-            e.preventDefault();
-            return false;
-        });
+        function initializeCopyProtection() {
+            // ============================
+            // Mouse Protection
+            // ============================
 
-        // Prevent mouse down events (right-click)
-        document.addEventListener('mousedown', function(e) {
-            if(e.button === 2) { // Right mouse button
+            document.addEventListener('contextmenu', function(e) {
                 e.preventDefault();
-                return false;
-            }
-        });
+            });
 
-        // Prevent auxiliary mouse buttons (middle click, etc)
-        document.addEventListener('auxclick', function(e) {
-            e.preventDefault();
-            return false;
-        });
+            document.addEventListener('mousedown', function(e) {
+                if (e.button === 2) { // Right mouse button
+                    e.preventDefault();
+                }
+            });
 
-        // ============================
-        // Keyboard Protection
-        // ============================
-        
-        // Prevent keyboard shortcuts for all OS combinations
-        document.addEventListener('keydown', function(e) {
-            // Windows/Linux: Ctrl + C/V/X/A
-            // macOS: Cmd + C/V/X/A
-            // Additional shortcuts
-            if (
-                // Standard copy/paste shortcuts
-                ((e.ctrlKey || e.metaKey) && 
-                    (e.key === 'c' || e.key === 'C' || 
-                     e.key === 'v' || e.key === 'V' ||
-                     e.key === 'x' || e.key === 'X' ||
-                     e.key === 'a' || e.key === 'A' ||
-                     e.key === 'p' || e.key === 'P' ||
-                     e.key === 's' || e.key === 'S')) ||
-                // Alternative copy/paste shortcuts
-                (e.ctrlKey && e.key === 'Insert') ||
-                (e.shiftKey && e.key === 'Insert') ||
-                (e.shiftKey && e.key === 'Delete') ||
-                // Function keys
-                (e.key === 'F12' || e.key === 'F11' || e.key === 'F10')
-            ) {
+            document.addEventListener('auxclick', function(e) {
                 e.preventDefault();
-                e.stopPropagation();
-                return false;
-            }
-        });
+            });
 
-        // ============================
-        // Mobile Device Protection
-        // ============================
-        
-        // Prevent selection of text
-        document.addEventListener('selectstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
+            // ============================
+            // Keyboard Protection
+            // ============================
 
-        // Prevent dragging of content
-        document.addEventListener('dragstart', function(e) {
-            e.preventDefault();
-            return false;
-        });
+            document.addEventListener('keydown', function(e) {
+                const forbiddenKeys = ['c', 'v', 'x', 'a', 'p', 's', 'Insert', 'Delete', 'F12', 'F11', 'F10'];
+                if ((e.ctrlKey || e.metaKey) && forbiddenKeys.includes(e.key.toLowerCase())) {
+                    e.preventDefault();
+                }
 
-        // Mobile touch selection prevention
-        document.addEventListener('touchstart', function(e) {
-            if (e.touches.length > 1) {  // Prevent multi-touch selection gestures
+            });
+
+
+
+            // ============================
+            // Mobile Device Protection
+            // ============================
+
+            document.addEventListener('selectstart', function(e) {
                 e.preventDefault();
-            }
-        }, { passive: false });
+            });
 
-        document.addEventListener('touchend', function(e) {
-            if (e.touches.length > 1) {
+            document.addEventListener('dragstart', function(e) {
                 e.preventDefault();
+            });
+
+            document.addEventListener('touchstart', function(e) {
+                if (e.touches.length > 1) { // Prevent multi-touch selection gestures
+                    e.preventDefault();
+                }
+            }, { passive: false });
+
+            // Remove the touchend listener. It's redundant and could interfere.
+            // touchstart with passive: false handles multi-touch prevention.
+
+
+            // Long press is handled by contextmenu, no need for custom event.
+
+            // ============================
+            // Copy/Cut/Paste Protection
+            // ============================
+
+            document.addEventListener('copy', function(e) {
+                e.preventDefault();
+            });
+
+            document.addEventListener('cut', function(e) {
+                e.preventDefault();
+            });
+
+            document.addEventListener('paste', function(e) {
+                e.preventDefault();
+            });
+
+            // ============================
+            // CSS Protection
+            // ============================
+
+            const styleProperties = {
+                '-webkit-user-select': 'none',
+                '-moz-user-select': 'none',
+                '-ms-user-select': 'none',
+                'user-select': 'none',
+                '-webkit-touch-callout': 'none',
+                'touch-action': 'none',
+                '-webkit-tap-highlight-color': 'transparent'
+            };
+
+            [document.body, document.documentElement].forEach(element => {
+                Object.assign(element.style, styleProperties);
+            });
+
+            // ============================
+            // Mobile Viewport Protection
+            // ============================
+
+            const meta = document.createElement('meta');
+            meta.name = 'viewport';
+            meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0';
+            document.head.appendChild(meta);
+
+            // ============================
+            // Debug Console Protection
+            // ============================
+
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                // More robust way to disable console methods:
+                const noop = () => {};
+                ['log', 'debug', 'info', 'warn', 'error'].forEach(method => {
+                    console[method] = noop;
+                });
             }
-        }, { passive: false });
-
-        // Prevent long-press context menu
-        document.addEventListener('long-press', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        // ============================
-        // Copy/Cut/Paste Protection
-        // ============================
-        
-        // Prevent copy command
-        document.addEventListener('copy', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        // Prevent cut command
-        document.addEventListener('cut', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        // Prevent paste command
-        document.addEventListener('paste', function(e) {
-            e.preventDefault();
-            return false;
-        });
-
-        // ============================
-        // CSS Protection
-        // ============================
-        
-        // Apply CSS prevention methods for all browsers
-        const styleProperties = {
-            '-webkit-user-select': 'none',
-            '-moz-user-select': 'none',
-            '-ms-user-select': 'none',
-            '-o-user-select': 'none',
-            'user-select': 'none',
-            '-webkit-touch-callout': 'none', // iOS Safari
-            'touch-action': 'none', // Prevent touch selection
-            '-webkit-tap-highlight-color': 'transparent' // Remove tap highlight on mobile
-        };
-
-        // Apply styles to both body and html for maximum compatibility
-        [document.body, document.documentElement].forEach(element => {
-            Object.assign(element.style, styleProperties);
-        });
-
-        // ============================
-        // Mobile Viewport Protection
-        // ============================
-        
-        // Disable iOS text size adjustment and zooming
-        const meta = document.createElement('meta');
-        meta.name = 'viewport';
-        meta.content = 'width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0';
-        document.head.appendChild(meta);
-
-        // ============================
-        // Debug Console Protection
-        // ============================
-        
-        // Disable console features in production
-        if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
-            console.log = function() {};
-            console.debug = function() {};
-            console.info = function() {};
-            console.warn = function() {};
-            console.error = function() {};
         }
-    }
     </script>
 </head>
