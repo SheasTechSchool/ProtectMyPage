@@ -1,0 +1,30 @@
+/* Hide content when JavaScript is disabled */
+.js-required {
+    display: none;
+}
+
+/* Show content only when JavaScript is enabled */
+.js-enabled .js-required {
+    display: block;
+}
+
+/* Prevent selection and interaction by default */
+body {
+    user-select: none;
+    touch-action: none;
+}
+
+/* Secure Styles (moved from inline style) */
+* {
+    user-select: none !important;
+    touch-action: none !important;
+    pointer-events: none !important;
+}
+
+body, .js-enabled {
+    pointer-events: auto !important;
+}
+
+::selection {
+    background: transparent !important;
+}
