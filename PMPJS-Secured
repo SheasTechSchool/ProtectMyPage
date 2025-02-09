@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <noscript>
+        <meta http-equiv="refresh" content="0; url=/javascript-required">
+    </noscript>
+    
+    <!-- Security Headers -->
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline';">
+    <meta http-equiv="X-Frame-Options" content="DENY">
+    <meta http-equiv="X-Content-Type-Options" content="nosniff">
+    <meta http-equiv="Permissions-Policy" content="camera=(), microphone=(), geolocation=()">
+    
+    <!-- Basic Protection Styles -->
+    <style>
+        /* Hide content when JavaScript is disabled */
+        .js-required {
+            display: none;
+        }
+        
+        /* Show content only when JavaScript is enabled */
+        .js-enabled .js-required {
+            display: block;
+        }
+        
+        /* Prevent selection and interaction by default */
+        body {
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            user-select: none;
+            -webkit-touch-callout: none;
+            touch-action: none;
+        }
+    </style>
+
+    <script>
+    /**
+     * Shea's Tech School © 2025 by Shea Bennett
+     * Licensed under Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+     * CC BY-NC-SA 4.0
+     * 
+     * DO NOT STEAL. JUST PAY FOR YOUR OWN ACCESS.
+     */
+    
+    // Immediately execute protection initialization
+    (function() {
+        // Create unique session identifier
+        const sessionToken = generateSecureToken();
+        
+        // Validate JavaScript execution
+        validateJavaScript();
+        
+        // Initialize core protection
+        document.addEventListener('DOMContentLoaded', initializeProtection);
+        
+        // Continuous monitoring
+        setInterval(validateProtection, 100);
+        
+        // Function to generate secure token
+        function generateSecureToken() {
+            const array = new Uint32Array(4);
+            crypto.getRandomValues(array);
+            return Array.from(array, x => x.toString(16)).join('');
+        }
+        
+        // Function to validate JavaScript execution
+        function validateJavaScript() {
+            const jsEnabled = document.createElement('div');
+            jsEnabled.className = 'js-enabled';
+            document.documentElement.appendChild(jsEnabled);
+            
+            // Verify JavaScript execution
+            if (!document.querySelector('.js-enabled')) {
+                window.location.href = '/javascript-required';
+            }
+            
+            // Add class to body when JavaScript is confirmed working
+            document.body.classList.add('js-enabled');
+        }
+        
+        // Main protection initialization
+        function initializeProtection() {
+            // Initialize security context
+            const securityContext = {
+                token: sessionToken,
+                timestamp: Date.now(),
+                checksumValid: true
+            };
+            
+            // ============================
+            // Enhanced Mouse Protection
+            // ============================
+            const mouseEvents = ['contextmenu', 'mousedown', 'mouseup', 'auxclick', 'selectstart', 'dragstart'];
+            mouseEvents.forEach(event => {
+                document.addEventListener(event, blockEvent, { capture: true });
+            });
+            
+            // ============================
+            // Enhanced Keyboard Protection
+            // ============================
+            document.addEventListener('keydown', function(e) {
+                // Expanded keyboard protection
+                if (
+                    (e.ctrlKey || e.metaKey || e.altKey) || // Any modifier key
+                    (e.key === 'F12') || // Developer tools
+                    (e.key === 'PrintScreen') || // Screen capture
+                    (e.key.toLowerCase() === 'i' && (e.ctrlKey || e.metaKey) && e.shiftKey) // Inspector
+                ) {
+                    blockEvent(e);
+                    validateProtection(); // Revalidate protection
+                }
+            }, { capture: true });
+            
+            // ============================
+            // Enhanced Mobile Protection
+            // ============================
+            const touchEvents = ['touchstart', 'touchend', 'touchmove', 'touchcancel'];
+            touchEvents.forEach(event => {
+                document.addEventListener(event, function(e) {
+                    if (e.touches.length > 1) {
+                        blockEvent(e);
+                    }
+                }, { passive: false, capture: true });
+            });
+            
+            // ============================
+            // Copy Protection
+            // ============================
+            const copyEvents = ['copy', 'cut', 'paste', 'print'];
+            copyEvents.forEach(event => {
+                document.addEventListener(event, blockEvent, { capture: true });
+            });
+            
+            // ============================
+            // Enhanced CSS Protection
+            // ============================
+            applySecureStyles();
+            
+            // ============================
+            // DevTools Protection
+            // ============================
+            implementDevToolsProtection();
+            
+            // ============================
+            // Debug Prevention
+            // ============================
+            implementDebugPrevention();
+        }
+        
+        // Enhanced event blocking
+        function blockEvent(e) {
+            e.stopPropagation();
+            e.preventDefault();
+            validateProtection();
+            return false;
+        }
+        
+        // Apply secure styles
+        function applySecureStyles() {
+            const style = document.createElement('style');
+            style.textContent = `
+                * {
+                    -webkit-user-select: none !important;
+                    -moz-user-select: none !important;
+                    -ms-user-select: none !important;
+                    user-select: none !important;
+                    -webkit-touch-callout: none !important;
+                    pointer-events: none !important;
+                }
+                
+                body, .js-enabled {
+                    pointer-events: auto !important;
+                }
+                
+                ::selection {
+                    background: transparent !important;
+                }
+                
+                ::-moz-selection {
+                    background: transparent !important;
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        
+        // Implement DevTools protection
+        function implementDevToolsProtection() {
+            // Detect DevTools through console.log
+            const devtools = /./;
+            devtools.toString = function() {
+                validateProtection();
+                return '';
+            };
+            
+            // Monitor window size changes (DevTools opening)
+            const windowSize = {
+                width: window.outerWidth - window.innerWidth,
+                height: window.outerHeight - window.innerHeight
+            };
+            
+            setInterval(() => {
+                const widthDiff = window.outerWidth - window.innerWidth;
+                const heightDiff = window.outerHeight - window.innerHeight;
+                
+                if (widthDiff > windowSize.width + 100 || heightDiff > windowSize.height + 100) {
+                    validateProtection();
+                }
+            }, 100);
+        }
+        
+        // Implement debug prevention
+        function implementDebugPrevention() {
+            setInterval(() => {
+                debugger;
+            }, 100);
+            
+            // Override console methods in production
+            if (window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1') {
+                const noop = () => {};
+                ['log', 'debug', 'info', 'warn', 'error', 'clear'].forEach(method => {
+                    console[method] = noop;
+                });
+            }
+        }
+        
+        // Continuous protection validation
+        function validateProtection() {
+            try {
+                // Verify DOM integrity
+                const jsEnabled = document.querySelector('.js-enabled');
+                if (!jsEnabled || !document.body.classList.contains('js-enabled')) {
+                    window.location.reload();
+                }
+                
+                // Verify styles haven't been tampered with
+                const computedStyle = window.getComputedStyle(document.body);
+                if (
+                    computedStyle.userSelect !== 'none' ||
+                    computedStyle.webkitUserSelect !== 'none'
+                ) {
+                    applySecureStyles();
+                }
+                
+                // Verify protection is active
+                const protectionTest = document.createElement('div');
+                let selectionPossible = false;
+                try {
+                    document.execCommand('selectAll');
+                    selectionPossible = true;
+                } catch (e) {}
+                
+                if (selectionPossible) {
+                    initializeProtection();
+                }
+                
+            } catch (e) {
+                window.location.reload();
+            }
+        }
+    })();
+    </script>
+</head>
+<body>
+    <noscript>
+        <div style="text-align: center; padding: 20px;">
+            <h1>NICE TRY! JavaScript Required</h1>
+            <p>This page requires JavaScript to function properly. Please enable JavaScript in your browser settings.</p>
+            <p>Stop trying to bootleg and steal. Just pay for your own login buddy.</p>
+        </div>
+    </noscript>
+    
+    <div class="js-required">
+        <!-- Your protected content goes here -->
+    </div>
+</body>
+</html>
