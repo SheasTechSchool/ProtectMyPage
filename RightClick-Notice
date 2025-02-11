@@ -1,0 +1,56 @@
+<head>
+  <title>Shea's Tech School</title>
+  <style>
+    /* Optional: Style the alert box (you can customize this) */
+    .custom-alert {
+      position: fixed; /* Or absolute, depending on your layout */
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #f0f0f0; /* Light gray background */
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 5px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+      z-index: 9999; /* Ensure it's on top */
+    }
+
+    .custom-alert p {
+      margin: 0; /* Remove default paragraph margins */
+    }
+
+    .custom-alert button {
+      margin-top: 10px;
+      padding: 8px 15px;
+      background-color: #4CAF50; /* Green */
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+  <script>
+    document.addEventListener('contextmenu', function(e) {
+      e.preventDefault(); // Prevent default right-click menu
+
+      // Check if an alert is already displayed to avoid multiple alerts
+      if (!document.querySelector('.custom-alert')) {
+        const alertBox = document.createElement('div');
+        alertBox.className = 'custom-alert';
+        alertBox.innerHTML = `
+          <p>Please do not steal content, images, or videos.  Most of our code/platform is already GPL.</p>
+          <p>For inquiries, contact: <a href="mailto:school@sheastech.io">school@sheastech.io</a></p>
+          <button onclick="closeAlert()">OK</button>
+        `;
+        document.body.appendChild(alertBox);
+      }
+    });
+
+    function closeAlert() {
+      const alertBox = document.querySelector('.custom-alert');
+      if (alertBox) {
+        alertBox.remove();
+      }
+    }
+  </script>
+</head>
