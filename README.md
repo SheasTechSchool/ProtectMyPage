@@ -105,6 +105,9 @@ For support and inquiries, please contact Shea's Tech School.
 - Cross-browser compatibility
 - Mobile-first approach
 
+## Simulation Testing ##
+ - Just a test
+
 ---
 
 <div align="center">
